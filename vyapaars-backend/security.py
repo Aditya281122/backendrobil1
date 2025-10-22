@@ -16,18 +16,20 @@ SECRET_KEY = "a_very_secret_key_for_development_only_change_it"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Use Argon2 for modern, secure password hashing
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login")
 
 # --- Password and Token Functions ---
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    password_bytes = plain_password.encode('utf-8')
-    return pwd_context.verify(password_bytes[:72], hashed_password)
+    """Verifies a plain-text password against a hashed one."""
+    return pwd_context.verify(plain_password, hashed_password)
 
 def get_password_hash(password: str) -> str:
-    password_bytes = password.encode('utf-8')
-    return pwd_context.hash(password_bytes[:72])
+    """Hashes a plain-text password using Argon2."""
+    return pwd_context.hash(password)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     to_encode = data.copy()

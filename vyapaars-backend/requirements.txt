@@ -1,7 +1,10 @@
 fastapi
 uvicorn
 python-jose[cryptography]
-passlib[bcrypt]
+
+# Use passlib with the modern Argon2 backend
+passlib[argon2]
+
 SQLAlchemy
 psycopg2-binary
 python-dotenv
