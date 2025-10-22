@@ -8,14 +8,14 @@ import logging
 import os
 from datetime import timedelta
 
-# Use absolute imports instead of relative
+# Use absolute imports
 import models
 import schemas
 import database
 import security
 
-# Create all database tables on startup
-models.Base.metadata.create_all(bind=database.engine)
+# Correctly use database.Base to create tables
+database.Base.metadata.create_all(bind=database.engine)
 
 # --- App Initialization ---
 app = FastAPI(
@@ -86,4 +86,6 @@ async def read_users_me(current_user: models.User = Depends(security.get_current
     return current_user
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)), reload=True)
+    # Use the PORT environment variable provided by Render
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
