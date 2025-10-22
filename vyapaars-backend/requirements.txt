@@ -1,7 +1,8 @@
-fastapi
-uvicorn[standard]
-passlib[bcrypt]
-python-jose[cryptography]
-pydantic-settings
-python-multipart
-bcrypt
+    fastapi
+    uvicorn[standard]
+    passlib==1.7.4
+    bcrypt==4.1.2
+    python-jose[cryptography]
+    pydantic-settings
+    python-multipart
+    
