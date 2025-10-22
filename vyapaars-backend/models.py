@@ -4,9 +4,9 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime
-from .database import Base
+import database
 
-class User(Base):
+class User(database.Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -18,7 +18,7 @@ class User(Base):
 
     actions = relationship("UserAction", back_populates="user")
 
-class Product(Base):
+class Product(database.Base):
     __tablename__ = "products"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -27,14 +27,14 @@ class Product(Base):
     stock = Column(Integer, default=0)
     last_updated = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-class Sale(Base):
+class Sale(database.Base):
     __tablename__ = "sales"
 
     id = Column(Integer, primary_key=True, index=True)
     total_amount = Column(Float, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-class UserAction(Base):
+class UserAction(database.Base):
     __tablename__ = "user_actions"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

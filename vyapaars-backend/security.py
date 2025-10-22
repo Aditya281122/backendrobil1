@@ -7,7 +7,9 @@ from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
-from . import models, schemas, database
+import models
+import schemas
+import database
 
 # --- Configuration ---
 SECRET_KEY = "a_very_secret_key_for_development_only_change_it"

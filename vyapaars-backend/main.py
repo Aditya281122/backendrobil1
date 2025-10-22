@@ -8,10 +8,13 @@ import logging
 import os
 from datetime import timedelta
 
-from . import models, schemas, database, security
+# Use absolute imports instead of relative
+import models
+import schemas
+import database
+import security
 
 # Create all database tables on startup
-# In a full production environment, you would use Alembic for migrations.
 models.Base.metadata.create_all(bind=database.engine)
 
 # --- App Initialization ---
