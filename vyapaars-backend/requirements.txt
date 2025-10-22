@@ -4,3 +4,4 @@ passlib[bcrypt]
 python-jose[cryptography]
 pydantic-settings
 python-multipart
+bcrypt
